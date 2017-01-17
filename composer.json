@@ -1,0 +1,17 @@
+{
+    "name": "dynamicscreen/extension-kit",
+    "type": "library",
+    "authors": [
+        {
+            "name": "DynamicScreen",
+            "email": "marty@dynamicscreen.xyz"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "DynamicScreen\\ExtensionKit\\": "src/"
+        }
+    }
+}
