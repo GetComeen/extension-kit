@@ -4,7 +4,9 @@
 namespace DynamicScreen\ExtensionKit;
 
 
-abstract class BaseExtensionProvider
+use Illuminate\Support\ServiceProvider;
+
+abstract class BaseExtensionProvider extends ServiceProvider
 {
 
     protected $slideTypes;
