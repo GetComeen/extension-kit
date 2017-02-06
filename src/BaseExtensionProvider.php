@@ -8,7 +8,6 @@ use Illuminate\Support\ServiceProvider;
 
 abstract class BaseExtensionProvider extends ServiceProvider
 {
-
     protected $slideTypes;
 
     final public function register()
@@ -25,11 +24,10 @@ abstract class BaseExtensionProvider extends ServiceProvider
 
     public function getExtensionIdentifier()
     {
-        return str_slug($this->getExtensionAuthor()) . '. ' . str_slug($this->getExtensionName());
+        return str_slug($this->getExtensionAuthor()) . '.' . str_slug($this->getExtensionName());
     }
 
     abstract public function getExtensionName();
-
     abstract public function getExtensionAuthor();
 
     public function getExtensionVersion()
@@ -37,11 +35,16 @@ abstract class BaseExtensionProvider extends ServiceProvider
         return '1.0';
     }
 
+    public function getAssetsPath()
+    {
+        return './';
+    }
+
     final protected function registerSlideType($className)
     {
         $slideType = new $className;
         if ($slideType instanceof BaseSlideType) {
-            $this->slideTypes[] = $slideType;
+            $this->slideTypes[$slideType->getIdentifier()] = $slideType;
         }
     }
 

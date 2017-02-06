@@ -3,10 +3,26 @@
 
 namespace DynamicScreen\ExtensionKit;
 
-
 abstract class BaseSlideType
 {
+    private $slide_buffer = [];
+    /**
+     * @var ExtensionContract
+     */
+    protected $extension = null;
+
     abstract public function getName();
+    abstract public function fetchSlide(SlideContract $slide);
+
+    public function getIdentifier()
+    {
+        return str_slug($this->getName());
+    }
+
+    public final function getFullIdentifier()
+    {
+        return $this->extension->getIdentifier() . '.' . $this->getIdentifier();
+    }
 
     public function getDescription()
     {
@@ -17,4 +33,60 @@ abstract class BaseSlideType
     {
         return 'square';
     }
+
+    public function getDefaultOptions()
+    {
+        return [];
+    }
+
+    public function slideOptionsView()
+    {
+        return null;
+    }
+
+    final protected function slide($data)
+    {
+        $this->slide_buffer[] = $data;
+        return $this;
+    }
+
+    final public function flushSlides()
+    {
+        $slides = $this->slide_buffer;
+        $this->slide_buffer = [];
+        return $slides;
+    }
+
+    final public function toArray()
+    {
+        return [
+            'full_identifier' => $this->getFullIdentifier(),
+            'identifier' => $this->getIdentifier(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'icon' => $this->getIcon(),
+            'extension' => $this->getExtension()->toArray(),
+        ];
+    }
+
+    /**
+     * @return ExtensionContract
+     */
+    public final function getExtension()
+    {
+        return $this->extension;
+    }
+
+    /**
+     * @param null $extension
+     * @return BaseSlideType
+     */
+    public final function setExtension(ExtensionContract $extension)
+    {
+        $this->extension = $extension;
+        return $this;
+    }
+
+
+
 }
