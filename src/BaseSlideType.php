@@ -87,6 +87,16 @@ abstract class BaseSlideType
         return $this;
     }
 
+    protected function registerOptionsForm(FormBuilder $form)
+    {
 
+    }
+
+    public function getOptionsForm()
+    {
+        $form = new FormBuilder();
+        $this->registerOptionsForm($form);
+        return $form->getFields();
+    }
 
 }

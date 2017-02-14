@@ -8,11 +8,13 @@ use Illuminate\Support\ServiceProvider;
 
 abstract class BaseExtensionProvider extends ServiceProvider
 {
-    protected $slideTypes;
+    private $slideTypes;
+    private $viewPath = null;
 
     final public function register()
     {
         $this->registerExtension();
+        $this->registerViewPath();
         $manager = app('extensionmanager');
         $manager->registerExtension($this);
     }
@@ -51,5 +53,19 @@ abstract class BaseExtensionProvider extends ServiceProvider
     final public function getSlideTypes()
     {
         return $this->slideTypes;
+    }
+
+    protected function setViewPath($path)
+    {
+        $this->viewPath = $path;
+    }
+
+    private function registerViewPath()
+    {
+        if ($this->viewPath === null) {
+            return;
+        }
+
+        $this->loadViewsFrom($this->viewPath, $this->getExtensionIdentifier());
     }
 }
