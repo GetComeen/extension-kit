@@ -50,6 +50,14 @@ abstract class BaseExtensionProvider extends ServiceProvider
         }
     }
 
+    final protected function registerWidget($className)
+    {
+        $widget = new $className;
+        if ($widget instanceof BaseWidget) {
+            $this->slideTypes[$widget->getIdentifier()] = $widget;
+        }
+    }
+
     final public function getSlideTypes()
     {
         return $this->slideTypes;
