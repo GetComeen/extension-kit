@@ -33,4 +33,10 @@ interface ExtensionContract
     public function setAssetsPath($assetsPath);
 
     public function toArray();
+
+    public function getStoragePath();
+
+    public function uploadFile($name, $namespace = null);
+
+    public function getUploadedFile($name, $namespace = null);
 }
