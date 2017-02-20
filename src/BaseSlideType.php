@@ -44,6 +44,11 @@ abstract class BaseSlideType
         return null;
     }
 
+     public function processOptions($options)
+     {
+        return $options;
+     }
+
     final protected function slide($data)
     {
         $this->slide_buffer[] = $data;
