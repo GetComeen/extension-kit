@@ -8,7 +8,8 @@ use Illuminate\Support\ServiceProvider;
 
 abstract class BaseExtensionProvider extends ServiceProvider
 {
-    private $slideTypes;
+    private $slideTypes = [];
+    private $widgets = [];
     private $viewPath = null;
 
     final public function register()
@@ -54,13 +55,17 @@ abstract class BaseExtensionProvider extends ServiceProvider
     {
         $widget = new $className;
         if ($widget instanceof BaseWidget) {
-            $this->slideTypes[$widget->getIdentifier()] = $widget;
+            $this->widgets[$widget->getIdentifier()] = $widget;
         }
     }
 
     final public function getSlideTypes()
     {
         return $this->slideTypes;
+    }
+
+    final public function getWidgets() {
+        return $this->widgets;
     }
 
     protected function setViewPath($path)

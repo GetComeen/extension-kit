@@ -18,5 +18,9 @@ abstract class BaseWidget
         return '';
     }
 
+    final public function getIdentifier() {
+        return str_slug($this->getName());
+    }
+
     public abstract function getComponentPath();
 }
