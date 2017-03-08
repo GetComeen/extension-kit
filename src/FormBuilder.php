@@ -32,6 +32,10 @@ class FormBuilder
         return $this->add($name, $label, 'colorpicker', $options);
     }
 
+    public function listElement($name, $label, $options = []) {
+        return $this->add($name, $label, 'listElement', $options);
+    }
+
     /**
      * @param $name
      * @param $label
