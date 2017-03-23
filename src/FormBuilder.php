@@ -32,8 +32,14 @@ class FormBuilder
         return $this->add($name, $label, 'colorpicker', $options);
     }
 
-    public function listElement($name, $label, $options = []) {
+    public function listElement($name, $label, $options = [])
+    {
         return $this->add($name, $label, 'listElement', $options);
+    }
+
+    public function mapsAutocomplete($name, $label, $options = [])
+    {
+        return $this->add($name, $label, 'maps-autocomplete', $options);
     }
 
     /**
