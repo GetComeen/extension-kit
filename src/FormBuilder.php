@@ -12,6 +12,10 @@ class FormBuilder
         return $this->add($name, $label, 'text', $options);
     }
 
+    public function twitterInput($name, $label, $options = []) {
+        return $this->add($name, $label, 'twitterInput', $options);
+    }
+
     public function textarea($name, $label, $options = []) {
         return $this->add($name, $label, 'textarea', $options);
     }
