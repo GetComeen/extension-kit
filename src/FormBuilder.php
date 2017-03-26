@@ -9,52 +9,60 @@ class FormBuilder
     protected $fields = [];
 
     public function text($name, $label, $options = []) {
-        return $this->add($name, $label, 'text', $options);
+        $options = array_merge(['label' => $label], $options);
+        return $this->add($name, 'text', $options);
     }
 
     public function twitterInput($name, $label, $options = []) {
-        return $this->add($name, $label, 'twitterInput', $options);
+        $options = array_merge(['label' => $label], $options);
+        return $this->add($name, 'twitterInput', $options);
     }
 
     public function textarea($name, $label, $options = []) {
-        return $this->add($name, $label, 'textarea', $options);
+        $options = array_merge(['label' => $label], $options);
+        return $this->add($name, 'textarea', $options);
     }
 
     public function number($name, $label, $options = []) {
-        return $this->add($name, $label, 'number', $options);
+        $options = array_merge(['label' => $label], $options);
+        return $this->add($name, 'number', $options);
     }
 
     public function file($name, $label, $options = []) {
-        return $this->add($name, $label, 'file', $options);
+        $options = array_merge(['label' => $label], $options);
+        return $this->add($name, 'file', $options);
     }
 
     public function datepicker($name, $label, $options = []) {
-        return $this->add($name, $label, 'datepicker', $options);
+        $options = array_merge(['label' => $label], $options);
+        return $this->add($name, 'datepicker', $options);
     }
 
     public function colorpicker($name, $label, $options = []) {
-        return $this->add($name, $label, 'colorpicker', $options);
+        $options = array_merge(['label' => $label], $options);
+        return $this->add($name, 'colorpicker', $options);
     }
 
-    public function listElement($name, $label, $options = [])
+    public function listElement($name, $options = [])
     {
-        return $this->add($name, $label, 'listElement', $options);
+        return $this->add($name, 'listElement', $options);
     }
 
     public function mapsAutocomplete($name, $label, $options = [])
     {
-        return $this->add($name, $label, 'maps-autocomplete', $options);
+        $options = array_merge(['label' => $label], $options);
+        return $this->add($name, 'maps-autocomplete', $options);
     }
 
     /**
      * @param $name
-     * @param $label
-     * @param $options
+     * @param $type
+     * @param array $options
      * @return $this
      */
-    protected function add($name, $label, $type, $options = [])
+    protected function add($name, $type, $options = [])
     {
-        $this->fields[$name] = compact('name', 'type', 'label', 'options');
+        $this->fields[$name] = compact('name', 'type', 'options');
         return $this;
     }
 
