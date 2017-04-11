@@ -43,9 +43,13 @@ class FormBuilder
         return $this->add($name, 'colorpicker', $options);
     }
 
-    public function listElement($name, $options = [])
+    public function list($name, $label, \Closure $form_builder,$options = [])
     {
-        return $this->add($name, 'listElement', $options);
+        $form = new FormBuilder();
+        $form_builder($form);
+        $form = $form->getFields();
+        $options = array_merge(compact('label', 'form'), $options);
+        return $this->add($name, 'list', $options);
     }
 
     public function mapsAutocomplete($name, $label, $options = [])

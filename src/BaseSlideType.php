@@ -104,4 +104,9 @@ abstract class BaseSlideType
         return $form->getFields();
     }
 
+    protected function processList($list)
+    {
+        return collect($list)->values()->toArray();
+    }
+
 }
