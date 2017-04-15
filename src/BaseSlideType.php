@@ -109,4 +109,9 @@ abstract class BaseSlideType
         return collect($list)->values()->toArray();
     }
 
+    public function getValidations()
+    {
+        return [];
+    }
+
 }
