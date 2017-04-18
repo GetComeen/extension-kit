@@ -111,7 +111,10 @@ abstract class BaseSlideType
 
     public function getValidations()
     {
-        return [];
+        return [
+            'rules' => [],
+            'messages' => []
+        ];
     }
 
 }
