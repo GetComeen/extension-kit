@@ -3,6 +3,8 @@
 
 namespace DynamicScreen\ExtensionKit;
 
+use App\Models\Display;
+
 abstract class BaseSlideType
 {
     private $slide_buffer = [];
@@ -10,6 +12,8 @@ abstract class BaseSlideType
      * @var ExtensionContract
      */
     protected $extension = null;
+
+    protected $hidden = false;
 
     abstract public function getName();
     abstract public function fetchSlide(SlideContract $slide);
@@ -115,6 +119,16 @@ abstract class BaseSlideType
             'rules' => [],
             'messages' => []
         ];
+    }
+
+    public function isHidden()
+    {
+        return $this->hidden;
+    }
+
+    public function isVisible()
+    {
+        return !$this->isHidden();
     }
 
 }
