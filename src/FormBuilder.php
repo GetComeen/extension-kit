@@ -43,6 +43,11 @@ class FormBuilder
         return $this->add($name, 'colorpicker', $options);
     }
 
+    public function dropdown($name, $label, $dropdown_options, $options = []) {
+        $options = array_merge(['label' => $label, 'options' => $dropdown_options], $options);
+        return $this->add($name, 'select', $options);
+    }
+
     public function list($name, $label, \Closure $form_builder,$options = [])
     {
         $form = new FormBuilder();
