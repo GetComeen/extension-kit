@@ -15,12 +15,29 @@ abstract class BaseExtensionProvider extends ServiceProvider
     final public function register()
     {
         $this->registerExtension();
+        if (($appName = env('APPLICATION_NAME')) == 'display') {
+            $this->registerExtensionInDisplay();
+        } elseif ($appName == 'core-api') {
+            $this->registerExtensionInApi();
+        }
+
         $this->registerViewPath();
         $manager = app('extensionmanager');
         $manager->registerExtension($this);
+
     }
 
     public function registerExtension()
+    {
+
+    }
+
+    public function registerExtensionInApi()
+    {
+        
+    }
+
+    public function registerExtensionInDisplay()
     {
 
     }
