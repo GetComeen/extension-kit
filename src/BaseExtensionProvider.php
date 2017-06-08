@@ -81,4 +81,10 @@ abstract class BaseExtensionProvider extends ServiceProvider
 
         $this->loadViewsFrom($this->viewPath, $this->getExtensionIdentifier());
     }
+
+    protected function schedule($scheduler)
+    {
+        
+    }
+
 }

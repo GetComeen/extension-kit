@@ -4,6 +4,7 @@
 namespace DynamicScreen\ExtensionKit;
 
 use App\Models\Display;
+use App\Models\Slide;
 
 abstract class BaseSlideType
 {
@@ -129,6 +130,11 @@ abstract class BaseSlideType
     public function isVisible()
     {
         return !$this->isHidden();
+    }
+
+    public function slides()
+    {
+        return Slide::where('type', $this->getFullIdentifier());
     }
 
 }
