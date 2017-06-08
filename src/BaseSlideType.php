@@ -79,6 +79,11 @@ abstract class BaseSlideType
         ];
     }
 
+	public function getSettings()
+	{
+		return [];
+    }
+
     /**
      * @return ExtensionContract
      */
