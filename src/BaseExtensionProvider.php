@@ -11,6 +11,7 @@ abstract class BaseExtensionProvider extends ServiceProvider
     private $slideTypes = [];
     private $widgets = [];
     private $viewPath = null;
+    private $script = null;
 
     final public function register()
     {
@@ -104,4 +105,8 @@ abstract class BaseExtensionProvider extends ServiceProvider
         
     }
 
+    public function getScriptFile()
+    {
+        return null;
+    }
 }
