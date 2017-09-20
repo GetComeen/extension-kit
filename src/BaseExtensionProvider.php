@@ -65,6 +65,11 @@ abstract class BaseExtensionProvider extends ServiceProvider
     {
         $slideType = new $className;
         if ($slideType instanceof BaseSlideType) {
+            if (config('dynamicscreen.app') == 'display') {
+                $slideType->registerSlideInDisplay();
+            } elseif (config('dynamicscreen.app') == 'core-api') {
+                $slideType->registerSlideInApi();
+            }
             $this->slideTypes[$slideType->getIdentifier()] = $slideType;
         }
     }
