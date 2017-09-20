@@ -19,6 +19,9 @@ abstract class BaseSlideType
     abstract public function getName();
     abstract public function fetchSlide(SlideContract $slide);
 
+    public function registerSlideInDisplay() {}
+    public function registerSlideInApi() {}
+
     public function getIdentifier()
     {
         return str_slug($this->getName());
