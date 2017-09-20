@@ -142,4 +142,10 @@ abstract class BaseSlideType
         return Slide::where('type', $this->getFullIdentifier());
     }
 
+    protected function refreshSlides(array $filters)
+    {
+        $slides = Slide::where('type', $this->getFullIdentifier());
+        return $slides;
+    }
+
 }
