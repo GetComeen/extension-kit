@@ -9,7 +9,7 @@ use Illuminate\Support\ServiceProvider;
 abstract class BaseExtensionProvider extends ServiceProvider
 {
     private $slideTypes = [];
-    private $widgets = [];
+    private $widgetTypes = [];
     private $viewPath = null;
     private $script = null;
 
@@ -74,11 +74,16 @@ abstract class BaseExtensionProvider extends ServiceProvider
         }
     }
 
-    final protected function registerWidget($className)
+    final protected function registerWidgetType($className)
     {
-        $widget = new $className;
-        if ($widget instanceof BaseWidget) {
-            $this->widgets[$widget->getIdentifier()] = $widget;
+        $widgetType = new $className;
+        if ($widgetType instanceof BaseWidgetType) {
+            if (config('dynamicscreen.app') == 'display') {
+                $widgetType->registerSlideInDisplay();
+            } elseif (config('dynamicscreen.app') == 'core-api') {
+                $widgetType->registerSlideInApi();
+            }
+            $this->widgetTypes[$widgetType->getIdentifier()] = $widgetType;
         }
     }
 
@@ -87,8 +92,8 @@ abstract class BaseExtensionProvider extends ServiceProvider
         return $this->slideTypes;
     }
 
-    final public function getWidgets() {
-        return $this->widgets;
+    final public function getWidgetTypes() {
+        return $this->widgetTypes;
     }
 
     protected function setViewPath($path)
