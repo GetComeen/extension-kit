@@ -63,6 +63,12 @@ class FormBuilder
         return $this->add($name, 'maps-autocomplete', $options);
     }
 
+    public function switchInput($name, $label, $options = [])
+    {
+        $options = array_merge(['label' => $label], $options);
+        return $this->add($name, 'switch',$options);
+    }
+
     /**
      * @param $name
      * @param $type

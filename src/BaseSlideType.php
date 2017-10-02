@@ -147,8 +147,20 @@ abstract class BaseSlideType
 
     protected function refreshSlides(array $filters)
     {
-        $slides = Slide::where('type', $this->getFullIdentifier());
-        return $slides;
+        $slides = Slide::where('type', $this->getFullIdentifier())->visible();
+        foreach ($filters as $index => $filter)
+        {
+            $slides = $slides->where('options->'.$index,$filter);
+        }
+        Slide::updateSlides($slides->get());
+        return response()->json('success',200);
     }
 
+    protected function route($type, $uri, $callback) {
+        $baseSlideType = $this;
+        if(in_array($type,['get','post','delete','put','patch','options']))
+        {
+            app()->$type($baseSlideType->extension->getName().'/'.$uri, $callback);
+        }
+    }
 }
