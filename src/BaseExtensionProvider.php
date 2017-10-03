@@ -65,11 +65,6 @@ abstract class BaseExtensionProvider extends ServiceProvider
     {
         $slideType = new $className;
         if ($slideType instanceof BaseSlideType) {
-            if (config('dynamicscreen.app') == 'display') {
-                $slideType->registerSlideInDisplay();
-            } elseif (config('dynamicscreen.app') == 'core-api') {
-                $slideType->registerSlideInApi();
-            }
             $this->slideTypes[$slideType->getIdentifier()] = $slideType;
         }
     }
@@ -118,5 +113,15 @@ abstract class BaseExtensionProvider extends ServiceProvider
     public function getScriptFile()
     {
         return null;
+    }
+
+    protected function refreshSlides(array $filters)
+    {
+        $slides = Slide::where('type', $this->getFullIdentifier());
+        foreach ($filters as $index => $filter)
+        {
+            $slides = $slides->where('options->'.$index,$filter);
+        }
+        return $slides->get();
     }
 }
