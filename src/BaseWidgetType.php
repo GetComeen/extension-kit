@@ -104,7 +104,7 @@ abstract class BaseWidgetType
     {
         $form = new FormBuilder();
         $this->registerOptionsForm($form);
-        return $form->getFields();
+        return json_decode(json_encode($form->getFields()));
     }
 
     protected function processList($list)
