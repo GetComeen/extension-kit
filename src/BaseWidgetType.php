@@ -1,29 +1,24 @@
 <?php
 
-
 namespace DynamicScreen\ExtensionKit;
 
-use App\Models\Display;
-use App\Models\Slide;
 
-abstract class BaseSlideType
+abstract class BaseWidgetType
 {
-    private $slide_buffer = [];
+    private $widget_buffer = [];
     /**
      * @var ExtensionContract
      */
     protected $extension = null;
-
     protected $hidden = false;
 
     abstract public function getName();
-    abstract public function fetchSlide(SlideContract $slide);
+    abstract public function fetchWidget(WidgetContract $slide);
 
     public function registerSlideInDisplay() {}
     public function registerSlideInApi() {}
 
-    public function getIdentifier()
-    {
+    final public function getIdentifier() {
         return str_slug($this->getName());
     }
 
@@ -42,37 +37,27 @@ abstract class BaseSlideType
         return 'square';
     }
 
-    public function getColor()
-    {
-        return '#239d00';
-    }
-
     public function getDefaultOptions()
     {
         return [];
     }
 
-    public function slideOptionsView()
+    public function processOptions($options)
     {
-        return null;
+        return $options;
     }
 
-     public function processOptions($options)
-     {
-        return $options;
-     }
-
-    final protected function slide($data)
+    final protected function widget($data)
     {
-        $this->slide_buffer[] = $data;
+        $this->widget_buffer[] = $data;
         return $this;
     }
 
-    final public function flushSlides()
+    final public function flushWidgets()
     {
-        $slides = $this->slide_buffer;
-        $this->slide_buffer = [];
-        return $slides;
+        $widgets = $this->widget_buffer;
+        $this->widget_buffer = [];
+        return $widgets;
     }
 
     final public function toArray()
@@ -87,9 +72,9 @@ abstract class BaseSlideType
         ];
     }
 
-	public function getSettings()
-	{
-		return [];
+    public function getSettings()
+    {
+        return [];
     }
 
     /**
@@ -145,27 +130,5 @@ abstract class BaseSlideType
         return !$this->isHidden();
     }
 
-    public function slides()
-    {
-        return Slide::where('type', $this->getFullIdentifier());
-    }
-
-    protected function refreshSlides(array $filters)
-    {
-        $slides = Slide::where('type', $this->getFullIdentifier())->visible();
-        foreach ($filters as $index => $filter)
-        {
-            $slides = $slides->where('options->'.$index,$filter);
-        }
-        Slide::updateSlides($slides->get());
-        return response()->json('success',200);
-    }
-
-    protected function route($type, $uri, $callback) {
-        $baseSlideType = $this;
-        if(in_array($type,['get','post','delete','put','patch','options']))
-        {
-            app()->$type($baseSlideType->extension->getName().'/'.$uri, $callback);
-        }
-    }
+    public abstract function getComponentPath();
 }

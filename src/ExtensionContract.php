@@ -24,9 +24,15 @@ interface ExtensionContract
 
     public function getSlideTypes();
 
+    public function getWidgetTypes();
+
     public function setSlideTypes($slideTypes);
 
+    public function setWidgetTypes($widgetTypes);
+
     public function getSlideType($identifier);
+
+    public function getWidgetType($identifier);
 
     public function getAssetsPath();
 
