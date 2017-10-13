@@ -42,6 +42,11 @@ abstract class BaseSlideType
         return 'square';
     }
 
+    public function getColor()
+    {
+        return '#239d00';
+    }
+
     public function getDefaultOptions()
     {
         return [];

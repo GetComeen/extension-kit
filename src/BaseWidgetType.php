@@ -53,7 +53,7 @@ abstract class BaseWidgetType
         return $this;
     }
 
-    final public function flushWidget()
+    final public function flushWidgets()
     {
         $widgets = $this->widget_buffer;
         $this->widget_buffer = [];
