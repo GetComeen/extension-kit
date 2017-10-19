@@ -53,6 +53,8 @@ abstract class BaseExtensionProvider extends ServiceProvider
 
     abstract public function getExtensionName();
     abstract public function getExtensionAuthor();
+    abstract public function getExtensionLabel();
+
 
     public function getExtensionVersion()
     {
@@ -135,8 +137,7 @@ abstract class BaseExtensionProvider extends ServiceProvider
             return $this->getExtensionIdentifier().'.'.$query;
         },$widgetTypes);
         $widgets = Widget::where('type', $widgetTypesFullName);
-        // TODO
-        //Widget::updateWidgets($widgets->get());
+        Widget::updateWidgets($widgets->get());
         return response()->json('success',200);
     }
 

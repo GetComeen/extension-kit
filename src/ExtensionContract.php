@@ -14,6 +14,10 @@ interface ExtensionContract
 
     public function setName($name);
 
+    public function getLabel();
+
+    public function setLabel($label);
+
     public function getAuthor();
 
     public function setAuthor($author);
