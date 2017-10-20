@@ -38,7 +38,7 @@ abstract class BaseExtensionProvider extends ServiceProvider
 
     public function registerExtensionInApi()
     {
-        
+
     }
 
     public function registerExtensionInDisplay()
@@ -52,6 +52,7 @@ abstract class BaseExtensionProvider extends ServiceProvider
     }
 
     abstract public function getExtensionName();
+
     abstract public function getExtensionAuthor();
     abstract public function getExtensionLabel();
 
@@ -87,8 +88,9 @@ abstract class BaseExtensionProvider extends ServiceProvider
         return $this->slideTypes;
     }
 
-    final public function getWidgetTypes() {
-        return $this->widgetTypes;
+    final public function getWidgets()
+    {
+        return $this->widgets;
     }
 
     protected function setViewPath($path)
@@ -107,7 +109,7 @@ abstract class BaseExtensionProvider extends ServiceProvider
 
     protected function schedule($scheduler)
     {
-        
+
     }
 
     public function getScriptFile()
