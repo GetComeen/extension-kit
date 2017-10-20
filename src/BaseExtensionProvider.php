@@ -88,6 +88,11 @@ abstract class BaseExtensionProvider extends ServiceProvider
         return $this->slideTypes;
     }
 
+    final public function getWidgetTypes()
+    {
+        return $this->widgetTypes;
+    }
+
     final public function getWidgets()
     {
         return $this->widgets;
