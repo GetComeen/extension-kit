@@ -49,4 +49,6 @@ interface ExtensionContract
     public function uploadFile($name, $namespace = null);
 
     public function getUploadedFile($name, $namespace = null);
+
+    public function getUploadedFileAbsolutePath($name, $namespace = null);
 }

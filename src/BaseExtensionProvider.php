@@ -14,7 +14,6 @@ abstract class BaseExtensionProvider extends ServiceProvider
     private $slideTypes = [];
     private $widgetTypes = [];
     private $viewPath = null;
-    private $script = null;
 
     final public function register()
     {
