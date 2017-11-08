@@ -42,6 +42,16 @@ abstract class BaseSlideType
         return 'square';
     }
 
+    /**
+     * @return boolean
+     */
+    abstract public function hasDuration();
+
+    public function defaultDuration()
+    {
+        return 5;
+    }
+
     public function getColor()
     {
         return '#239d00';
