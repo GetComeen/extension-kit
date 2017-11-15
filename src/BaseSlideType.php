@@ -42,6 +42,16 @@ abstract class BaseSlideType
         return 'square';
     }
 
+    /**
+     * @return boolean
+     */
+    abstract public function hasDuration();
+
+    public function getDefaultDuration()
+    {
+        return 5;
+    }
+
     public function getColor()
     {
         return '#239d00';
@@ -108,6 +118,11 @@ abstract class BaseSlideType
     {
         $this->extension = $extension;
         return $this;
+    }
+
+    public function getDuration(SlideContract $slideContract)
+    {
+        return 0;
     }
 
     protected function registerOptionsForm(FormBuilder $form)
