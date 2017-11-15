@@ -47,7 +47,7 @@ abstract class BaseSlideType
      */
     abstract public function hasDuration();
 
-    public function defaultDuration()
+    public function getDefaultDuration()
     {
         return 5;
     }
@@ -118,6 +118,11 @@ abstract class BaseSlideType
     {
         $this->extension = $extension;
         return $this;
+    }
+
+    public function getDuration(SlideContract $slideContract)
+    {
+        return 0;
     }
 
     protected function registerOptionsForm(FormBuilder $form)
