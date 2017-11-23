@@ -183,4 +183,9 @@ abstract class BaseSlideType
             app()->$type($baseSlideType->extension->getName().'/'.$uri, $callback);
         }
     }
+
+    public function hasCorrectSettings($settings)
+    {
+        return true;
+    }
 }

@@ -154,4 +154,19 @@ abstract class BaseExtensionProvider extends ServiceProvider
             Route::$type($baseExtension->getExtensionName().'/'.$uri, $callback);
         }
     }
+
+    public function getSettingsView($settings)
+    {
+        return null;
+    }
+
+    public function getSettingsRules()
+    {
+        return [];
+    }
+
+    public function processSettings($request)
+    {
+        return $request->all();
+    }
 }
