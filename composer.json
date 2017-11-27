@@ -1,6 +1,7 @@
 {
     "name": "dynamicscreen/extension-kit",
     "type": "library",
+    "description": "A base library for all the DynamicScreen extensions.",
     "authors": [
         {
             "name": "DynamicScreen",
