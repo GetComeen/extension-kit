@@ -14,6 +14,7 @@ abstract class BaseExtensionProvider extends ServiceProvider
     private $slideTypes = [];
     private $widgetTypes = [];
     private $viewPath = null;
+    private $basePath = '../';
 
     final public function register()
     {
@@ -22,6 +23,20 @@ abstract class BaseExtensionProvider extends ServiceProvider
             $this->registerExtensionInDisplay();
         } elseif (config('dynamicscreen.app') == 'core') {
             $this->registerExtensionInApi();
+        }
+
+        $basedir = $this->getExtensionPath();
+        $manifext_file = $basedir . '/manifext.json';
+        if ($path = realpath($manifext_file)) {
+            $this->manifextPath = $path;
+        } else {
+            $manifext_file = $basedir . '/extension.json';
+            if ($path = realpath($manifext_file)) {
+                $this->manifextPath = $path;
+            } else {
+                $this->manifextPath = null;
+            }
+            $this->manifextPath = null;
         }
 
         $this->registerViewPath();
@@ -55,7 +70,6 @@ abstract class BaseExtensionProvider extends ServiceProvider
     abstract public function getExtensionAuthor();
     abstract public function getExtensionLabel();
 
-
     public function getExtensionVersion()
     {
         return '1.0';
@@ -64,6 +78,14 @@ abstract class BaseExtensionProvider extends ServiceProvider
     public function getAssetsPath()
     {
         return './';
+    }
+
+    /**
+     * @return string
+     */
+    public function getExtensionPath()
+    {
+        return realpath(dirname(with(new \ReflectionClass($this))->getFileName()) . str_start($this->basePath, '/'));
     }
 
     final protected function registerSlideType($className)
@@ -168,5 +190,13 @@ abstract class BaseExtensionProvider extends ServiceProvider
     public function processSettings($request)
     {
         return $request->all();
+    }
+
+    /**
+     * @return string
+     */
+    public function getManifextPath()
+    {
+        return $this->manifextPath;
     }
 }

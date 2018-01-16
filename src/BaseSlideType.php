@@ -127,13 +127,18 @@ abstract class BaseSlideType
 
     protected function registerOptionsForm(FormBuilder $form)
     {
-
+        return null;
     }
 
     public function getOptionsForm()
     {
         $form = new FormBuilder();
-        $this->registerOptionsForm($form);
+        $view = $this->registerOptionsForm($form);
+
+        if ($view && is_string($view) && app('view')->exists($view)) {
+            return $view;
+        }
+
         return json_decode(json_encode($form->getFields()));
     }
 
