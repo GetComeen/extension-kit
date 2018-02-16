@@ -193,4 +193,9 @@ abstract class BaseSlideType
     {
         return true;
     }
+
+    public function getAttachedMedias(SlideContract $slide)
+    {
+        return [];
+    }
 }
