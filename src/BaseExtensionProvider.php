@@ -199,4 +199,22 @@ abstract class BaseExtensionProvider extends ServiceProvider
     {
         return $this->manifextPath;
     }
+
+    private final function endpointBase()
+    {
+        return \Route::domain('api.' . config('dynamicscreen.domain'))
+                     ->middleware('api')
+                     ->prefix('/' . urlencode($this->getExtensionIdentifier()))
+                    ->name($this->getExtensionIdentifier() . '.');
+    }
+
+    protected function apiGet($uri, $action)
+    {
+        return $this->endpointBase()->get($uri, $action);
+    }
+
+    protected function apiPost($uri, $action)
+    {
+        return $this->endpointBase()->post($uri, $action);
+    }
 }
