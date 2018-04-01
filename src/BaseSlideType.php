@@ -194,6 +194,11 @@ abstract class BaseSlideType
         return true;
     }
 
+    public function hasPadding()
+    {
+        return true;
+    }
+
     public function getAttachedMedias(SlideContract $slide)
     {
         return [];
