@@ -135,8 +135,10 @@ abstract class BaseSlideType
         $form = new FormBuilder();
         $view = $this->registerOptionsForm($form);
 
-        if ($view && is_string($view) && app('view')->exists($view)) {
-            return $view;
+        if ($view && app()->bound('view')) {
+            if ((is_string($view) && app('view')->exists($view)) || (is_array($view) && isset($view[1]) && is_array($view[1])) || $view instanceof \Illuminate\Contracts\View\View) {
+                return $view;
+            }
         }
 
         return json_decode(json_encode($form->getFields()));
