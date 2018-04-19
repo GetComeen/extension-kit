@@ -15,6 +15,7 @@ abstract class BaseExtensionProvider extends ServiceProvider
     private $widgetTypes = [];
     private $viewPath = null;
     private $basePath = '../';
+    private $publishedAssets = [];
 
     final public function register()
     {
@@ -216,5 +217,17 @@ abstract class BaseExtensionProvider extends ServiceProvider
     protected function apiPost($uri, $action)
     {
         return $this->endpointBase()->post($uri, $action);
+    }
+
+    protected function publish($from, $to)
+    {
+       $this->publishedAssets[$from] = $to;
+    }
+
+    public function publishAssets()
+    {
+        $this->publishes(collect($this->publishedAssets)->mapWithKeys(function ($to, $from) {
+            return [$this->getExtensionPath() . str_start($from, '/') => public_path('assets/' . $this->getExtensionIdentifier() . str_start($to, '/'))];
+        })->toArray(), 'display.public');
     }
 }
