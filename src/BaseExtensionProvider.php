@@ -13,6 +13,7 @@ abstract class BaseExtensionProvider extends ServiceProvider
 {
     private $slideTypes = [];
     private $widgetTypes = [];
+    private $triggerDefinitions = [];
     private $viewPath = null;
     private $basePath = '../';
     private $publishedAssets = [];
@@ -118,6 +119,19 @@ abstract class BaseExtensionProvider extends ServiceProvider
     final public function getWidgets()
     {
         return $this->widgets;
+    }
+
+    final protected function registerTriggerDefinition($className)
+    {
+        $definition = new $className;
+        if ($definition instanceof TriggerDefinition) {
+            $this->triggerDefinitions[$definition->getIdentifier()] = $definition;
+        }
+    }
+
+    final public function getTriggerDefinitions()
+    {
+        return $this->triggerDefinitions;
     }
 
     protected function setViewPath($path)
