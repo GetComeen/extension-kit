@@ -75,9 +75,9 @@ abstract class TriggerDefinition
         return $options;
     }
 
-    protected final function makeValidator()
+    protected final function makeValidator(array $values = [])
     {
-        return \Illuminate\Validation\Factory::make([], []);
+        return app('validator')->make($values, []);
     }
 
     public function optionsValidator(\Illuminate\Validation\Validator $validator, array $options)
@@ -87,7 +87,7 @@ abstract class TriggerDefinition
 
     public final function getOptionsValidator(array $options)
     {
-        return $this->getOptionsValidator($this->makeValidator(), $options);
+        return $this->optionsValidator($this->makeValidator($options), $options);
     }
 
     public function scheduledRun(ScenarioContract $scenario)
