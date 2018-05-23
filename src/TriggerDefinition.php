@@ -95,4 +95,9 @@ abstract class TriggerDefinition
 
     }
 
+    public function hasTriggedState()
+    {
+        return false;
+    }
+
 }
