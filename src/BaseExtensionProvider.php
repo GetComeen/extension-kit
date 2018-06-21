@@ -13,6 +13,7 @@ abstract class BaseExtensionProvider extends ServiceProvider
 {
     private $slideTypes = [];
     private $widgetTypes = [];
+    private $triggerDefinitions = [];
     private $viewPath = null;
     private $basePath = '../';
     private $publishedAssets = [];
@@ -69,6 +70,7 @@ abstract class BaseExtensionProvider extends ServiceProvider
     abstract public function getExtensionName();
 
     abstract public function getExtensionAuthor();
+
     abstract public function getExtensionLabel();
 
     public function getExtensionVersion()
@@ -120,6 +122,19 @@ abstract class BaseExtensionProvider extends ServiceProvider
         return $this->widgets;
     }
 
+    final protected function registerTriggerDefinition($className)
+    {
+        $definition = new $className;
+        if ($definition instanceof TriggerDefinition) {
+            $this->triggerDefinitions[$definition->getIdentifier()] = $definition;
+        }
+    }
+
+    final public function getTriggerDefinitions()
+    {
+        return $this->triggerDefinitions;
+    }
+
     protected function setViewPath($path)
     {
         $this->viewPath = $path;
@@ -147,34 +162,33 @@ abstract class BaseExtensionProvider extends ServiceProvider
     protected function refreshSlides(array $filters)
     {
         $slideTypes = array_keys($this->getSlideTypes());
-        $slideTypesFullName = array_map(function($query) {
-            return $this->getExtensionIdentifier().'.'.$query;
-        },$slideTypes);
+        $slideTypesFullName = array_map(function ($query) {
+            return $this->getExtensionIdentifier() . '.' . $query;
+        }, $slideTypes);
         $slides = Slide::whereIn('type', $slideTypesFullName);
-        foreach ($filters as $index => $filter)
-        {
-            $slides = $slides->where('options->'.$index,$filter);
+        foreach ($filters as $index => $filter) {
+            $slides = $slides->where('options->' . $index, $filter);
         }
         Slide::updateSlides($slides->get());
-        return response()->json('success',200);
+        return response()->json('success', 200);
     }
 
     protected function refreshWidgets(array $filters)
     {
         $widgetTypes = array_keys($this->getWidgetTypes());
-        $widgetTypesFullName = array_map(function($query) {
-            return $this->getExtensionIdentifier().'.'.$query;
-        },$widgetTypes);
+        $widgetTypesFullName = array_map(function ($query) {
+            return $this->getExtensionIdentifier() . '.' . $query;
+        }, $widgetTypes);
         $widgets = Widget::where('type', $widgetTypesFullName);
         Widget::updateWidgets($widgets->get());
-        return response()->json('success',200);
+        return response()->json('success', 200);
     }
 
-    protected function route($type, $uri, $callback) {
+    protected function route($type, $uri, $callback)
+    {
         $baseExtension = $this;
-        if(in_array($type,['get','post','delete','put','patch','options']))
-        {
-            Route::$type($baseExtension->getExtensionName().'/'.$uri, $callback);
+        if (in_array($type, ['get', 'post', 'delete', 'put', 'patch', 'options'])) {
+            Route::$type($baseExtension->getExtensionName() . '/' . $uri, $callback);
         }
     }
 
@@ -204,9 +218,9 @@ abstract class BaseExtensionProvider extends ServiceProvider
     private final function endpointBase()
     {
         return \Route::domain('api.' . config('dynamicscreen.domain'))
-                     ->middleware('api')
+                     ->middleware(['api', 'cors'])
                      ->prefix('/' . urlencode($this->getExtensionIdentifier()))
-                    ->name($this->getExtensionIdentifier() . '.');
+                     ->name($this->getExtensionIdentifier() . '.');
     }
 
     protected function apiGet($uri, $action)
@@ -221,7 +235,7 @@ abstract class BaseExtensionProvider extends ServiceProvider
 
     protected function publish($from, $to)
     {
-       $this->publishedAssets[$from] = $to;
+        $this->publishedAssets[$from] = $to;
     }
 
     public function publishAssets()
