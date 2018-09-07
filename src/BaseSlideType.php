@@ -57,6 +57,16 @@ abstract class BaseSlideType
         return '#239d00';
     }
 
+    public function isCompatibleWithDisplayMode()
+    {
+        return true;
+    }
+
+    public function isCompatibleWithInteractiveMode()
+    {
+        return true;
+    }
+
     public function getDefaultOptions()
     {
         return [];
