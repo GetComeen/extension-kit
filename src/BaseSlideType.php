@@ -215,4 +215,9 @@ abstract class BaseSlideType
     {
         return [];
     }
+
+    public function displayOffline()
+    {
+        return false;
+    }
 }
