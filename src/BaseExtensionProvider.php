@@ -218,7 +218,10 @@ abstract class BaseExtensionProvider extends ServiceProvider
     private final function endpointBase()
     {
         return \Route::domain('api.' . config('dynamicscreen.domain'))
-                     ->middleware(['api', 'cors'])
+                     ->middleware([
+                         'api',
+//                         'cors',
+                     ])
                      ->prefix('/' . urlencode($this->getExtensionIdentifier()))
                      ->name($this->getExtensionIdentifier() . '.');
     }
