@@ -220,4 +220,9 @@ abstract class BaseSlideType
     {
         return false;
     }
+
+    public function guessSlideName(SlideContract $slide)
+    {
+        return false;
+    }
 }
