@@ -3,6 +3,8 @@
 
 namespace DynamicScreen\ExtensionKit;
 
+use App\AccountDrivers\AccountDriverManager;
+use App\Models\Account;
 use App\Models\Display;
 use App\Models\Slide;
 
@@ -225,4 +227,10 @@ abstract class BaseSlideType
     {
         return false;
     }
+
+    public function neededExternalAccounts()
+    {
+        return [];
+    }
+
 }
