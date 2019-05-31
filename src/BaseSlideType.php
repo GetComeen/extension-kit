@@ -3,6 +3,8 @@
 
 namespace DynamicScreen\ExtensionKit;
 
+use App\AccountDrivers\AccountDriverManager;
+use App\Models\Account;
 use App\Models\Display;
 use App\Models\Slide;
 
@@ -224,5 +226,15 @@ abstract class BaseSlideType
     public function guessSlideName(SlideContract $slide)
     {
         return false;
+    }
+
+    public function getAccountTypesNeeded()
+    {
+        return [];
+    }
+
+    public function getAccountsByType($type)
+    {
+        return Account::where(['type' => $type, 'space_id' => current_space()->id, 'active' => true]);
     }
 }
