@@ -18,7 +18,7 @@ abstract class BaseExtensionProvider extends ServiceProvider
     private $basePath = '../';
     private $publishedAssets = [];
 
-    final public function register()
+    final public function boot()
     {
         $this->registerExtension();
         if (config('dynamicscreen.app') == 'display') {
@@ -27,6 +27,13 @@ abstract class BaseExtensionProvider extends ServiceProvider
             $this->registerExtensionInApi();
         }
 
+        $manager = app('extensionmanager');
+        $manager->registerExtension($this);
+        $this->bootExtension();
+    }
+
+    final public function register()
+    {
         $basedir = $this->getExtensionPath();
         $manifext_file = $basedir . '/manifext.json';
         if ($path = realpath($manifext_file)) {
@@ -42,12 +49,14 @@ abstract class BaseExtensionProvider extends ServiceProvider
         }
 
         $this->registerViewPath();
-        $manager = app('extensionmanager');
-        $manager->registerExtension($this);
-
     }
 
     public function registerExtension()
+    {
+
+    }
+
+    public function bootExtension()
     {
 
     }
