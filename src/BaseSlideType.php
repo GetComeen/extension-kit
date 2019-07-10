@@ -228,7 +228,7 @@ abstract class BaseSlideType
         return false;
     }
 
-    public function getAccountTypesNeeded()
+    public function neededExternalAccounts()
     {
         return [];
     }
