@@ -13,4 +13,6 @@ interface SlideContract
     public function getOption($name, $default = null);
     public function getMedia($media_id);
     public function getMedias(array $media_ids);
+    public function getExternalAccount($type);
+    public function getRemoteFile($remote_file_id) : RemoteFileContract;
 }
