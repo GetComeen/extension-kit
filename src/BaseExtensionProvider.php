@@ -256,4 +256,9 @@ abstract class BaseExtensionProvider extends ServiceProvider
             return [$this->getExtensionPath() . str_start($from, '/') => public_path('assets/' . $this->getExtensionIdentifier() . str_start($to, '/'))];
         })->toArray(), 'display.public');
     }
+
+    public function needsAdditionalSettings()
+    {
+        return true;
+    }
 }
