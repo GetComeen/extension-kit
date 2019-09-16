@@ -237,4 +237,9 @@ abstract class BaseSlideType
     {
         return Account::where(['type' => $type, 'space_id' => current_space()->id, 'active' => true]);
     }
+
+    public function getAttachedRemoteFiles(SlideContract $slide)
+    {
+        return [];
+    }
 }
