@@ -10,4 +10,5 @@ interface WidgetContract
     public function getOptions();
     public function getDisplay();
     public function getExtensionSettings();
+    public function getExternalAccount($type);
 }
