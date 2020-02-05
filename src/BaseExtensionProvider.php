@@ -17,6 +17,7 @@ abstract class BaseExtensionProvider extends ServiceProvider
     private $viewPath = null;
     private $basePath = '../';
     private $publishedAssets = [];
+    private $defaultDisplayMetadata = [];
 
     final public function boot()
     {
@@ -260,5 +261,17 @@ abstract class BaseExtensionProvider extends ServiceProvider
     public function needsAdditionalSettings()
     {
         return true;
+    }
+
+    protected final function registerDefaultDisplayMetadata($key) : DefaultDisplayMetadata
+    {
+        $metadata = new DefaultDisplayMetadata($key);
+        $this->defaultDisplayMetadata[] = $metadata;
+        return $metadata;
+    }
+
+    public final function getDefaultDisplayMetadata()
+    {
+        return $this->defaultDisplayMetadata;
     }
 }

@@ -8,7 +8,6 @@
             "email": "marty@dynamicscreen.xyz"
         }
     ],
-    "minimum-stability": "dev",
     "require": {},
     "autoload": {
         "psr-4": {
