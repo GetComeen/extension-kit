@@ -2,13 +2,11 @@
 
 namespace DynamicScreen\ExtensionKit;
 
-use App\MemoizeAwareTrait;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\HtmlString;
 
 class DefaultDisplayMetadata
 {
-    use MemoizeAwareTrait;
 
     protected $key = "";
     protected $title = "";
@@ -184,7 +182,6 @@ class DefaultDisplayMetadata
 
     public function getGroup()
     {
-        return once(function () {
             if (!$this->extension) {
                 return null;
             }
@@ -197,7 +194,6 @@ class DefaultDisplayMetadata
             }
 
             return $this->getExtension();
-        });
     }
 
     public function getGroupKey()
