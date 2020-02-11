@@ -4,6 +4,7 @@ namespace DynamicScreen\ExtensionKit;
 
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\HtmlString;
+use Illuminate\Validation\Rule;
 
 class DefaultDisplayMetadata
 {
@@ -11,12 +12,13 @@ class DefaultDisplayMetadata
     protected $key = "";
     protected $title = "";
     protected $description = "";
-    protected $default_value = "";
+    protected $default_value = null;
     protected $linkedSlideType = "";
     protected $force = false;
     protected $admin = false;
     protected $validation_rules = [];
     protected $extension;
+    protected $possibleValues = [];
 
     public function __construct($key)
     {
@@ -84,6 +86,11 @@ class DefaultDisplayMetadata
         return $this->default_value;
     }
 
+    public function hasDefaultValue() : bool
+    {
+        return $this->default_value !== null;
+    }
+
     /**
      * @param string $default_value
      * @return DefaultDisplayMetadata
@@ -117,6 +124,10 @@ class DefaultDisplayMetadata
      */
     public function getValidationRules(): array
     {
+        $rules = $this->validation_rules;
+        if (!empty($this->possibleValues)) {
+            $rules[] = Rule::in(array_keys($this->possibleValues));
+        }
         return $this->validation_rules;
     }
 
@@ -216,15 +227,48 @@ class DefaultDisplayMetadata
         $group = $this->getGroup();
         $refl = new \ReflectionClass($group);
         if ($this->isAdmin()) {
-            return new HtmlString("<i class=\"fa fa-fw fa-suitcase\"></i> " . __('app.administration'));
+            return new HtmlString("<i class=\"fa fa-fw mr-10 fa-suitcase\"></i>" . __('app.administration'));
         } elseif ($refl->getName() === "DynamicScreen\ExtensionSupport\Extension") {
             $icon = $forceIcon ? "fa-puzzle-piece" : "";
-            return new HtmlString("<i class=\"fa fa-fw {$icon}\"></i> {$group->getLabel()}");
+            return new HtmlString("<i class=\"fa fa-fw mr-10 {$icon}\"></i>{$group->getLabel()}");
         } elseif ($group instanceof BaseSlideType) {
-            return new HtmlString("<i class=\"fa fa-fw {$group->getIcon()}\"></i> {$group->getName()}");
+            return new HtmlString("<i class=\"fa fa-fw mr-10 {$group->getIcon()}\"></i>{$group->getName()}");
         }
 
         return new HtmlString("<i class=\"fa fa-fw fa-gear\"></i> Système");
     }
+
+    public function mustBeProvided()
+    {
+        return $this->isForced() || $this->hasDefaultValue();
+    }
+
+    /**
+     * @return array
+     */
+    public function getPossibleValues(): array
+    {
+        if (is_callable($this->possibleValues)) {
+            
+        }
+        return $this->possibleValues;
+    }
+
+    public function hasPossibleValues() : bool
+    {
+        return !empty($this->possibleValues);
+    }
+
+    /**
+     * @param array $possibleValues
+     * @return DefaultDisplayMetadata
+     */
+    public function values(array $possibleValues): DefaultDisplayMetadata
+    {
+        $this->possibleValues = $possibleValues;
+        return $this;
+    }
+
+
 
 }
