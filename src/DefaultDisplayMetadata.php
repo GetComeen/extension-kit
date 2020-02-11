@@ -78,7 +78,7 @@ class DefaultDisplayMetadata
     /**
      * @return string
      */
-    public function getDefaultValue(): string
+    public function getDefaultValue(): ?string
     {
         if (Lang::has($this->default_value)) {
             return Lang::get($this->default_value);
