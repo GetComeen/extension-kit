@@ -2,6 +2,7 @@
 
 namespace DynamicScreen\ExtensionKit;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\HtmlString;
 use Illuminate\Validation\Rule;
@@ -126,7 +127,7 @@ class DefaultDisplayMetadata
     {
         $rules = $this->validation_rules;
         if (!empty($this->possibleValues)) {
-            $rules[] = Rule::in(array_keys($this->possibleValues));
+            $rules[] = Rule::in(array_keys($this->getPossibleValues()));
         }
         return $this->validation_rules;
     }
@@ -249,7 +250,7 @@ class DefaultDisplayMetadata
     public function getPossibleValues(): array
     {
         if (is_callable($this->possibleValues)) {
-            
+            return ($this->possibleValues)($this);
         }
         return $this->possibleValues;
     }
@@ -263,8 +264,12 @@ class DefaultDisplayMetadata
      * @param array $possibleValues
      * @return DefaultDisplayMetadata
      */
-    public function values(array $possibleValues): DefaultDisplayMetadata
+    public function values($possibleValues): DefaultDisplayMetadata
     {
+        if ($possibleValues instanceof Collection) {
+            $possibleValues = $possibleValues->toArray();
+        }
+
         $this->possibleValues = $possibleValues;
         return $this;
     }
