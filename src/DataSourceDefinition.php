@@ -2,6 +2,7 @@
 
 namespace DynamicScreen\ExtensionKit;
 
+use App\DataSources\DataSet;
 use App\Models\Account;
 use App\Models\DataSource;
 use Illuminate\Http\Request;
@@ -9,10 +10,12 @@ use Illuminate\View\View;
 
 abstract class DataSourceDefinition
 {
+     /**
+     * @var ExtensionContract
+     */
+    protected $extension = null;
 
     protected $scheduled = false;
-
-    protected $extension = null;
 
     abstract public function getName();
     abstract public function getAuthorName();
