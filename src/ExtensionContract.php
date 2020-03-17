@@ -30,13 +30,19 @@ interface ExtensionContract
 
     public function getWidgetTypes();
 
+    public function getDatasourceDefinitions();
+
     public function setSlideTypes($slideTypes);
 
     public function setWidgetTypes($widgetTypes);
 
+    public function setDatasourceDefinitions($datasourceDefinitions = null);
+
     public function getSlideType($identifier);
 
     public function getWidgetType($identifier);
+
+    public function getDatasourceDefinition($identifier);
 
     public function getAssetsPath();
 

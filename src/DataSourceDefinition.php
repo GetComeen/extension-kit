@@ -98,6 +98,11 @@ abstract class DataSourceDefinition
         return Account::where(['type' => $type, 'space_id' => current_space()->id, 'active' => true]);
     }
 
+    public function hasCorrectSettings($settings)
+    {
+        return true;
+    }
+
     /**
      * @param null $extension
      * @return DatasourceDefinition
