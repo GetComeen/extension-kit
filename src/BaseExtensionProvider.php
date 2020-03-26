@@ -3,7 +3,7 @@
 
 namespace DynamicScreen\ExtensionKit;
 
-
+use DynamicScreen\ExtensionKit\DataSourceDefinition;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Slide;
 use App\Models\Widget;
@@ -18,6 +18,7 @@ abstract class BaseExtensionProvider extends ServiceProvider
     private $basePath = '../';
     private $publishedAssets = [];
     private $defaultDisplayMetadata = [];
+    private $datasourceDefinitions = [];
 
     final public function boot()
     {
@@ -274,4 +275,20 @@ abstract class BaseExtensionProvider extends ServiceProvider
     {
         return $this->defaultDisplayMetadata;
     }
+
+    protected final function registerDatasourceDefinitions($className): DatasourceDefinition
+    {
+        $datasourceDefinition = new $className;
+        if ($datasourceDefinition instanceof DataSourceDefinition) {
+            $this->datasourceDefinitions[$datasourceDefinition->getIdentifier()] = $datasourceDefinition;
+        }
+        return $datasourceDefinition;
+    }
+
+    public final function getDatasourceDefinitions()
+    {
+        return $this->datasourceDefinitions;
+    }
+
+
 }
