@@ -3,7 +3,6 @@
 
 namespace DynamicScreen\ExtensionKit;
 
-// use App\DataSources\DataSourceDefinition;
 use DynamicScreen\ExtensionKit\DataSourceDefinition;
 use Illuminate\Support\ServiceProvider;
 use App\Models\Slide;
