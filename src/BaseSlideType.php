@@ -3,9 +3,7 @@
 
 namespace DynamicScreen\ExtensionKit;
 
-use App\AccountDrivers\AccountDriverManager;
 use App\Models\Account;
-use App\Models\Display;
 use App\Models\Slide;
 
 abstract class BaseSlideType
@@ -79,10 +77,10 @@ abstract class BaseSlideType
         return null;
     }
 
-     public function processOptions($options)
-     {
+    public function processOptions($options)
+    {
         return $options;
-     }
+    }
 
     final protected function slide($data)
     {
@@ -235,7 +233,7 @@ abstract class BaseSlideType
 
     public function getAccountsByType($type)
     {
-        return Account::where(['type' => $type, 'space_id' => current_space()->id, 'active' => true]);
+        return Account::accessible()->where("type", $type);
     }
 
     public function getAttachedRemoteFiles(SlideContract $slide)
