@@ -20,6 +20,7 @@ class DefaultDisplayMetadata
     protected $validation_rules = [];
     protected $extension;
     protected $possibleValues = [];
+    protected $password = false;
 
     public function __construct($key)
     {
@@ -29,7 +30,7 @@ class DefaultDisplayMetadata
     /**
      * @return string
      */
-    public function getKey(): string
+    public function getKey() : string
     {
         return $this->key;
     }
@@ -37,7 +38,7 @@ class DefaultDisplayMetadata
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle() : string
     {
         if (Lang::has($this->title)) {
             return Lang::get($this->title);
@@ -49,7 +50,7 @@ class DefaultDisplayMetadata
      * @param string $title
      * @return DefaultDisplayMetadata
      */
-    public function title(string $title): DefaultDisplayMetadata
+    public function title(string $title) : DefaultDisplayMetadata
     {
         $this->title = $title;
         return $this;
@@ -58,7 +59,7 @@ class DefaultDisplayMetadata
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription() : string
     {
         if (Lang::has($this->description)) {
             return Lang::get($this->description);
@@ -70,7 +71,7 @@ class DefaultDisplayMetadata
      * @param string $description
      * @return DefaultDisplayMetadata
      */
-    public function description(string $description): DefaultDisplayMetadata
+    public function description(string $description) : DefaultDisplayMetadata
     {
         $this->description = $description;
         return $this;
@@ -79,7 +80,7 @@ class DefaultDisplayMetadata
     /**
      * @return string
      */
-    public function getDefaultValue(): ?string
+    public function getDefaultValue() : ?string
     {
         if (Lang::has($this->default_value)) {
             return Lang::get($this->default_value);
@@ -96,7 +97,7 @@ class DefaultDisplayMetadata
      * @param string $default_value
      * @return DefaultDisplayMetadata
      */
-    public function default(string $default_value): DefaultDisplayMetadata
+    public function default(string $default_value) : DefaultDisplayMetadata
     {
         $this->default_value = $default_value;
         return $this;
@@ -123,7 +124,7 @@ class DefaultDisplayMetadata
     /**
      * @return array
      */
-    public function getValidationRules(): array
+    public function getValidationRules() : array
     {
         $rules = $this->validation_rules;
         if (!empty($this->possibleValues)) {
@@ -132,7 +133,7 @@ class DefaultDisplayMetadata
         return $this->validation_rules;
     }
 
-    public function validation(...$validation_rules): DefaultDisplayMetadata
+    public function validation(...$validation_rules) : DefaultDisplayMetadata
     {
         $this->validation_rules = $validation_rules;
         return $this;
@@ -141,7 +142,7 @@ class DefaultDisplayMetadata
     /**
      * @return string
      */
-    public function getLinkedSlideType(): string
+    public function getLinkedSlideType() : string
     {
         return $this->linkedSlideType;
     }
@@ -150,7 +151,7 @@ class DefaultDisplayMetadata
      * @param string $linkedSlideType
      * @return DefaultDisplayMetadata
      */
-    public function linkedSlideType($linkedSlideType): DefaultDisplayMetadata
+    public function linkedSlideType($linkedSlideType) : DefaultDisplayMetadata
     {
         $this->linkedSlideType = $linkedSlideType;
         return $this;
@@ -159,7 +160,7 @@ class DefaultDisplayMetadata
     /**
      * @return bool
      */
-    public function isForced(): bool
+    public function isForced() : bool
     {
         return $this->force;
     }
@@ -168,7 +169,7 @@ class DefaultDisplayMetadata
      * @param bool $force
      * @return DefaultDisplayMetadata
      */
-    public function force(bool $force = true): DefaultDisplayMetadata
+    public function force(bool $force = true) : DefaultDisplayMetadata
     {
         $this->force = $force;
         return $this;
@@ -177,7 +178,7 @@ class DefaultDisplayMetadata
     /**
      * @return bool
      */
-    public function isAdmin(): bool
+    public function isAdmin() : bool
     {
         return $this->admin;
     }
@@ -186,7 +187,7 @@ class DefaultDisplayMetadata
      * @param bool $admin
      * @return DefaultDisplayMetadata
      */
-    public function admin(bool $admin = true): DefaultDisplayMetadata
+    public function admin(bool $admin = true) : DefaultDisplayMetadata
     {
         $this->admin = $admin;
         return $this;
@@ -194,18 +195,18 @@ class DefaultDisplayMetadata
 
     public function getGroup()
     {
-            if (!$this->extension) {
-                return null;
-            }
+        if (!$this->extension) {
+            return null;
+        }
 
-            if ($this->getLinkedSlideType()) {
-                $type = $this->getExtension()->getSlideType($this->getLinkedSlideType());
-                if ($type) {
-                    return $type;
-                }
+        if ($this->getLinkedSlideType()) {
+            $type = $this->getExtension()->getSlideType($this->getLinkedSlideType());
+            if ($type) {
+                return $type;
             }
+        }
 
-            return $this->getExtension();
+        return $this->getExtension();
     }
 
     public function getGroupKey()
@@ -247,7 +248,7 @@ class DefaultDisplayMetadata
     /**
      * @return array
      */
-    public function getPossibleValues(): array
+    public function getPossibleValues() : array
     {
         if (is_callable($this->possibleValues)) {
             return ($this->possibleValues)($this);
@@ -264,7 +265,7 @@ class DefaultDisplayMetadata
      * @param array $possibleValues
      * @return DefaultDisplayMetadata
      */
-    public function values($possibleValues): DefaultDisplayMetadata
+    public function values($possibleValues) : DefaultDisplayMetadata
     {
         if ($possibleValues instanceof Collection) {
             $possibleValues = $possibleValues->toArray();
@@ -274,6 +275,16 @@ class DefaultDisplayMetadata
         return $this;
     }
 
+    public function password($value = true) : self
+    {
+        $this->password = $value;
+        return $this;
+    }
+
+    public function isPassword() : bool
+    {
+        return $this->password;
+    }
 
 
 }
