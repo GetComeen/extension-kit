@@ -100,11 +100,7 @@ abstract class DataSourceDefinition
 
     public function getAccountsByType($type)
     {
-<<<<<<< HEAD
         return Account::accessible()->where("type", $type);
-=======
-        return Account::where(['type' => $type, 'space_id' => current_space()->id, 'active' => true]);
->>>>>>> feature/lumapps
     }
 
     public function hasCorrectSettings($settings)
