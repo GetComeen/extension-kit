@@ -65,6 +65,11 @@ abstract class DataSourceDefinition
         return $this->scheduled;
     }
 
+    public function isSchedulable()
+    {
+        return $this->scheduled;
+    }
+
     public function validationRules($creating)
     {
         return [];
@@ -95,7 +100,11 @@ abstract class DataSourceDefinition
 
     public function getAccountsByType($type)
     {
+<<<<<<< HEAD
         return Account::accessible()->where("type", $type);
+=======
+        return Account::where(['type' => $type, 'space_id' => current_space()->id, 'active' => true]);
+>>>>>>> feature/lumapps
     }
 
     public function hasCorrectSettings($settings)
