@@ -32,6 +32,11 @@ abstract class BaseWidgetType
         return '';
     }
 
+    public function getColor()
+    {
+        return '#239d00';
+    }
+
     public function getIcon()
     {
         return 'square';
