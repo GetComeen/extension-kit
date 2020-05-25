@@ -65,6 +65,11 @@ abstract class DataSourceDefinition
         return $this->scheduled;
     }
 
+    public function isSchedulable()
+    {
+        return $this->scheduled;
+    }
+
     public function validationRules($creating)
     {
         return [];
