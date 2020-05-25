@@ -130,5 +130,10 @@ abstract class BaseWidgetType
         return !$this->isHidden();
     }
 
+    public function hasCorrectSettings($settings)
+    {
+        return true;
+    }
+
     public abstract function getComponentPath();
 }
