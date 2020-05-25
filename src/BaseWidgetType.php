@@ -32,6 +32,11 @@ abstract class BaseWidgetType
         return '';
     }
 
+    public function getColor()
+    {
+        return '#239d00';
+    }
+
     public function getIcon()
     {
         return 'square';
@@ -128,6 +133,16 @@ abstract class BaseWidgetType
     public function isVisible()
     {
         return !$this->isHidden();
+    }
+
+    public function hasCorrectSettings($settings)
+    {
+        return true;
+    }
+
+    public function neededExternalAccounts()
+    {
+        return [];
     }
 
     public abstract function getComponentPath();
