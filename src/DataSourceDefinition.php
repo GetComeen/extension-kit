@@ -20,7 +20,7 @@ abstract class DataSourceDefinition
     abstract public function getName();
     abstract public function getAuthorName();
     abstract public function getIcon();
-    abstract public function fetch(DataSource $source, ?Request $request) : ?DataSet;
+    abstract public function fetch(DataSource $source, ?Request $request, $fresh) : ?DataSet;
     abstract public function renderOptions(DataSource $source) : View;
 
     public function getIdentifier()
