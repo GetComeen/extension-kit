@@ -223,6 +223,11 @@ abstract class BaseSlideType
         return [];
     }
 
+    public function getAttachedFolders(SlideContract $slide)
+    {
+        return [];
+    }
+
     public function displayOffline()
     {
         return false;
