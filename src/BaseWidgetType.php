@@ -140,5 +140,10 @@ abstract class BaseWidgetType
         return true;
     }
 
+    public function neededExternalAccounts()
+    {
+        return [];
+    }
+
     public abstract function getComponentPath();
 }
