@@ -57,6 +57,11 @@ abstract class BaseSlideType
         return '#239d00';
     }
 
+    public function areMediasExpired($medias)
+    {
+        return false;
+    }
+
     public function isCompatibleWithDisplayMode()
     {
         return true;
@@ -212,6 +217,11 @@ abstract class BaseSlideType
     }
 
     public function getAttachedMedias(SlideContract $slide)
+    {
+        return [];
+    }
+
+    public function getAttachedFolders(SlideContract $slide)
     {
         return [];
     }
