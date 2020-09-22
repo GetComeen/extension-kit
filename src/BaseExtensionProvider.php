@@ -23,9 +23,9 @@ abstract class BaseExtensionProvider extends ServiceProvider
     final public function boot()
     {
         $this->registerExtension();
-        if (config('dynamicscreen.test') == 'display') {
+        if (config('dynamicscreen.app') == 'display') {
             $this->registerExtensionInDisplay();
-        } elseif (config('dynamicscreen.test') == 'core') {
+        } elseif (config('dynamicscreen.app') == 'core') {
             $this->registerExtensionInApi();
         }
 
