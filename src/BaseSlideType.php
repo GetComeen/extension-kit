@@ -142,6 +142,11 @@ abstract class BaseSlideType
         return 0;
     }
 
+    public function getFullScreen()
+    {
+        return false;
+    }
+
     protected function registerOptionsForm(FormBuilder $form)
     {
         return null;
