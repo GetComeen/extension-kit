@@ -213,6 +213,11 @@ abstract class BaseExtensionProvider extends ServiceProvider
         return [];
     }
 
+    public function getDefaultSettings()
+    {
+        return null;
+    }
+
     public function processSettings($request)
     {
         return $request->all();
