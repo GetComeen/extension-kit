@@ -44,6 +44,11 @@ abstract class BaseSlideType
         return 'square';
     }
 
+    public function getImageIcon()
+    {
+        return null;
+    }
+
     /**
      * @return boolean
      */
